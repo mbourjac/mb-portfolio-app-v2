@@ -6,9 +6,7 @@ export const AppLayout = () => {
   return (
     <div className="grid min-h-dvh grid-rows-[auto_1fr_auto]">
       <Header />
-      <main className="p-3">
-        <Outlet />
-      </main>
+      <Outlet />
       <Footer />
     </div>
   );
