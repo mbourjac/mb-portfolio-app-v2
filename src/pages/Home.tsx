@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useAnimate } from 'framer-motion';
+import { useRouteTransitionContext } from '../context/RouteTransitionContext/RouteTransitionContext.hook';
 import { useCollections } from '../features/collection/collection.hooks';
 import {
   getRandomArrayIndex,
@@ -10,6 +11,10 @@ import { getRandomIntFromInterval } from '../helpers/random';
 
 export const Home = () => {
   const collections = useCollections();
+  const { isRouteTransition } = useRouteTransitionContext();
+  const [scope, animate] = useAnimate();
+
+  const [isInitialAnimation, setIsInitialAnimation] = useState(true);
 
   const allThumbnails = [
     ...collections.map((collection) => collection.thumbnails).flat(),
@@ -54,9 +59,24 @@ export const Home = () => {
     return () => clearInterval(interval);
   }, [visibleThumbnails, hiddenThumbnails]);
 
+  useEffect(() => {
+    if (isInitialAnimation) {
+      setIsInitialAnimation(false);
+    }
+  }, [isInitialAnimation]);
+
+  useEffect(() => {
+    if (isRouteTransition) {
+      void animate(scope.current, { opacity: 0 });
+    }
+  }, [isRouteTransition, scope, animate]);
+
   return (
     <main className="flex items-center justify-center">
-      <div className="grid w-fit grid-cols-[repeat(30,20px)] gap-[1px] opacity-80">
+      <div
+        ref={scope}
+        className="grid w-fit grid-cols-[repeat(30,20px)] gap-[1px] opacity-80"
+      >
         <AnimatePresence mode="popLayout">
           {visibleThumbnails.map((path) => (
             <motion.img
@@ -64,7 +84,10 @@ export const Home = () => {
               src={path}
               alt=""
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1, transition: { duration: 2 } }}
+              animate={{
+                opacity: 1,
+                transition: { duration: isInitialAnimation ? 1 : 2 },
+              }}
               exit={{ opacity: 0, transition: { duration: 1 } }}
             />
           ))}
