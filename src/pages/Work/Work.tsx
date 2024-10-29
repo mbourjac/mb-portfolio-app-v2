@@ -1,0 +1,59 @@
+import { useEffect, useState } from 'react';
+import { Link } from '@tanstack/react-router';
+import { useAnimate } from 'framer-motion';
+import { RightArrowIcon } from '../../components/RightArrowIcon';
+import { useRouteTransitionContext } from '../../context/RouteTransitionContext/RouteTransitionContext.hook';
+import { useCollections } from '../../features/collection/collection.hooks';
+import { CollectionPreview } from './CollectionPreview';
+
+export const Work = () => {
+  const [scope, animate] = useAnimate();
+  const { isRouteTransition } = useRouteTransitionContext();
+  const collections = useCollections();
+
+  const [hoveredCollectionIndex, setHoveredCollectionIndex] = useState<
+    number | null
+  >(null);
+
+  useEffect(() => {
+    if (isRouteTransition) {
+      void animate(scope.current, { opacity: 0 });
+    }
+  }, [scope, isRouteTransition, animate]);
+
+  return (
+    <main className="p-3" ref={scope}>
+      <div className="flex w-[calc(100vw-1.5rem)] flex-col gap-3 overflow-x-hidden">
+        {collections
+          .slice()
+          .reverse()
+          .map(({ fullInfo, slug, previews }, index) => {
+            return (
+              <Link
+                key={index}
+                to="/work/$collectionSlug"
+                params={{ collectionSlug: slug }}
+                className="hover:text-primary"
+              >
+                <article
+                  className="group flex flex-col gap-1 border-b border-black transition-opacity"
+                  onMouseEnter={() => setHoveredCollectionIndex(index)}
+                  onMouseLeave={() => setHoveredCollectionIndex(null)}
+                >
+                  <h2 className="flex -translate-x-[1.5rem] items-center gap-2 transition-transform duration-500 group-hover:translate-x-0">
+                    <RightArrowIcon />
+                    {fullInfo}
+                  </h2>
+                  <CollectionPreview
+                    previews={previews}
+                    collectionIndex={index}
+                    hoveredCollectionIndex={hoveredCollectionIndex}
+                  />
+                </article>
+              </Link>
+            );
+          })}
+      </div>
+    </main>
+  );
+};
