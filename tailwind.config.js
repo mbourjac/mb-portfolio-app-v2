@@ -2,6 +2,7 @@
 
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'selector',
   theme: {
     extend: {
       fontFamily: {
@@ -10,6 +11,7 @@ export default {
       },
       colors: {
         'off-black': '#181818',
+        'off-white': '#EFEFEF',
       },
     },
   },

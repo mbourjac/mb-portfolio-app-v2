@@ -34,7 +34,7 @@ export const Header = () => {
   }, [isRouteTransition, setIsRouteTransition]);
 
   return (
-    <header className="sticky top-0 z-10 flex justify-between bg-white p-3">
+    <header className="sticky top-0 z-10 flex justify-between p-3">
       <h1>Michaël Bourjac</h1>
       <nav className="flex gap-4" aria-label="Main">
         {links.map(({ label, to }) => (
@@ -48,11 +48,11 @@ export const Header = () => {
             aria-current={pathname === to ? 'page' : undefined}
           >
             <span className="flex items-center gap-1">
-              <span className="relative flex size-4 items-center justify-center rounded-full bg-black">
+              <span className="relative flex size-4 items-center justify-center rounded-full bg-off-black dark:bg-white">
                 <span
                   className={cn(
-                    'size-[0.875rem] rounded-full bg-white transition-transform duration-300 group-hover:scale-0',
-                    pathname === to && !isLinkHovered && 'scale-0',
+                    'size-[0.875rem] rounded-full bg-white transition-all duration-500 group-hover:scale-0 dark:bg-off-black',
+                    pathname === to && !isLinkHovered && 'scale-0 duration-300',
                   )}
                 ></span>
               </span>

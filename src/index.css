@@ -11,6 +11,6 @@
   }
 
   body {
-    @apply overscroll-none font-primary font-light text-off-black;
+    @apply dark:text-off-white overscroll-none font-primary font-light text-off-black transition-colors duration-500 dark:bg-off-black;
   }
 }

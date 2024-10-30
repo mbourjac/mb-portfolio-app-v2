@@ -36,7 +36,7 @@ export const Work = () => {
                 className="hover:text-primary"
               >
                 <article
-                  className="group flex flex-col gap-1 border-b border-black transition-opacity"
+                  className="group flex flex-col gap-1 border-b border-off-black transition-opacity dark:border-white"
                   onMouseEnter={() => setHoveredCollectionIndex(index)}
                   onMouseLeave={() => setHoveredCollectionIndex(null)}
                 >

@@ -1,8 +1,16 @@
+import { useEffect, useState } from 'react';
 import { DateTime } from '../../components/DateTime';
 
 export const Footer = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    root.classList.toggle('dark', isDarkMode);
+  }, [isDarkMode]);
+
   return (
-    <footer className="flex items-center justify-between p-3">
+    <footer className="grid grid-cols-3 items-center p-3">
       <nav className="flex gap-4" aria-label="External">
         <a
           href="https://github.com/mbourjac/"
@@ -19,7 +27,17 @@ export const Footer = () => {
           Github
         </a>
       </nav>
-      <DateTime className="h-6" />
+      <div className="justify-self-center">
+        <DateTime className="h-6" />
+      </div>
+      <div className="justify-self-end">
+        <button
+          className="group relative overflow-hidden"
+          onClick={() => setIsDarkMode((prevIsDarkMode) => !prevIsDarkMode)}
+        >
+          {isDarkMode ? 'Lightmode' : 'Darkmode'}
+        </button>
+      </div>
     </footer>
   );
 };
