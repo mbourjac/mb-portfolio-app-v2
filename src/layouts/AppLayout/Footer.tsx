@@ -10,7 +10,7 @@ export const Footer = () => {
   }, [isDarkMode]);
 
   return (
-    <footer className="grid grid-cols-3 items-center p-3">
+    <footer className="grid grid-cols-2 items-center p-3 md:grid-cols-3">
       <nav className="flex gap-4" aria-label="External">
         <a
           href="https://github.com/mbourjac/"
@@ -27,7 +27,7 @@ export const Footer = () => {
           Github
         </a>
       </nav>
-      <div className="justify-self-center">
+      <div className="hidden justify-self-center md:block">
         <DateTime className="h-6" />
       </div>
       <div className="justify-self-end">

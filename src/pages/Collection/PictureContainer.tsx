@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { motion, useAnimate } from 'framer-motion';
+import defaultTheme from 'tailwindcss/defaultTheme';
 import { useRouteTransitionContext } from '../../context/RouteTransitionContext/RouteTransitionContext.hook';
+import { useMediaQuery } from '../../hooks/use-media-query';
 import { useWindowSize } from '../../hooks/use-window-size';
 
 type PictureContainerProps = {
@@ -11,9 +13,12 @@ export const PictureContainer = ({ picture }: PictureContainerProps) => {
   const [scope, animate] = useAnimate();
   const { isRouteTransition } = useRouteTransitionContext();
   const { windowWidth, windowHeight } = useWindowSize();
+  const isSmallDevice = useMediaQuery(
+    `(max-width: ${defaultTheme.screens.md})`,
+  );
 
   const containerRatio = 3 / 4;
-  const maxContainerWidth = (windowWidth - 88) / 2;
+  const maxContainerWidth = (windowWidth - (isSmallDevice ? 28 : 88)) / 2;
   const maxContainerHeight = windowHeight - 48 * 2 - 12 * 2 - 34 * 2;
   const widthBasedOnHeight = maxContainerHeight * containerRatio;
   const heightBasedOnWidth = maxContainerWidth / containerRatio;

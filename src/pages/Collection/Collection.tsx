@@ -83,8 +83,8 @@ export const Collection = () => {
   ]);
 
   return (
-    <main className="grid grid-cols-[1fr_auto_1fr] items-center p-3">
-      <div className="col-start-2 flex flex-col">
+    <main className="grid grid-cols-[1fr_auto_1fr] grid-rows-[1fr_auto_1fr] items-center p-3 md:grid-rows-1">
+      <div className="col-start-2 row-start-2 flex flex-col md:row-start-1">
         <div className="flex flex-col gap-0.5 pb-1 text-sm uppercase leading-none">
           <p className="font-semibold">{name} /</p>
           <p>{titleAndDate}</p>
@@ -101,7 +101,7 @@ export const Collection = () => {
       <Link
         to="/work/$collectionSlug"
         params={{ collectionSlug: getNextCollectionSlug() }}
-        className="flex w-fit items-end justify-center justify-self-end text-sm uppercase [writing-mode:vertical-lr]"
+        className="hidden w-fit items-end justify-center justify-self-end text-sm uppercase md:col-start-3 md:flex md:[writing-mode:vertical-lr]"
       >
         Next collection
       </Link>

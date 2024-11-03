@@ -27,7 +27,7 @@ export const Work = () => {
         {collections
           .slice()
           .reverse()
-          .map(({ fullInfo, slug, previews }, index) => {
+          .map(({ fullInfo, name, titleAndDate, slug, previews }, index) => {
             return (
               <Link
                 key={index}
@@ -42,7 +42,10 @@ export const Work = () => {
                 >
                   <h2 className="flex -translate-x-[1.5rem] items-center gap-2 transition-transform duration-500 group-hover:translate-x-0">
                     <RightArrowIcon />
-                    {fullInfo}
+                    <span className="hidden sm:block">{fullInfo}</span>
+                    <span className="sm:hidden">
+                      {name}, {titleAndDate}
+                    </span>
                   </h2>
                   <CollectionPreview
                     previews={previews}

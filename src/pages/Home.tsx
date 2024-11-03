@@ -75,7 +75,7 @@ export const Home = () => {
     <main className="flex items-center justify-center">
       <div
         ref={scope}
-        className="grid w-fit grid-cols-[repeat(30,20px)] gap-[1px] opacity-80"
+        className="grid w-fit max-w-[653px] grid-cols-[repeat(30,minmax(0,1fr))] gap-[1px] p-3 opacity-80"
       >
         <AnimatePresence mode="popLayout">
           {visibleThumbnails.map((path) => (
