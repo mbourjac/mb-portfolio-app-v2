@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router';
+import { useSwipeable } from 'react-swipeable';
 import { useCollections } from '../../features/collection/collection.hooks';
 import { CollectionNavigation } from './CollectionNavigation';
 import { PictureContainer } from './PictureContainer';
@@ -42,6 +43,30 @@ export const Collection = () => {
     return collections[nextCollectionIndex]!.slug;
   }, [id, collections]);
 
+  const showNextCollection = useCallback(() => {
+    void navigate({
+      to: '/work/$collectionSlug',
+      params: { collectionSlug: getNextCollectionSlug() },
+    });
+  }, [navigate, getNextCollectionSlug]);
+
+  const showPreviousCollection = useCallback(() => {
+    void navigate({
+      to: '/work/$collectionSlug',
+      params: { collectionSlug: getPreviousCollectionSlug() },
+    });
+  }, [navigate, getPreviousCollectionSlug]);
+
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: showNextSpread,
+    onSwipedRight: showPreviousSpread,
+    onSwipedUp: showNextCollection,
+    onSwipedDown: showPreviousCollection,
+    swipeDuration: 500,
+    preventScrollOnSwipe: true,
+    trackMouse: true,
+  });
+
   useEffect(() => {
     setCurrentSpreadIndex(0);
   }, [id]);
@@ -56,16 +81,10 @@ export const Collection = () => {
           showPreviousSpread();
           break;
         case 'ArrowUp':
-          void navigate({
-            to: '/work/$collectionSlug',
-            params: { collectionSlug: getNextCollectionSlug() },
-          });
+          showNextCollection();
           break;
         case 'ArrowDown':
-          void navigate({
-            to: '/work/$collectionSlug',
-            params: { collectionSlug: getPreviousCollectionSlug() },
-          });
+          showPreviousCollection();
           break;
       }
     };
@@ -78,12 +97,15 @@ export const Collection = () => {
     navigate,
     showNextSpread,
     showPreviousSpread,
-    getNextCollectionSlug,
-    getPreviousCollectionSlug,
+    showNextCollection,
+    showPreviousCollection,
   ]);
 
   return (
-    <main className="grid grid-cols-[1fr_auto_1fr] grid-rows-[1fr_auto_1fr] items-center p-3 md:grid-rows-1">
+    <main
+      className="grid grid-cols-[1fr_auto_1fr] grid-rows-[1fr_auto_1fr] items-center p-3 md:grid-rows-1"
+      {...swipeHandlers}
+    >
       <div className="col-start-2 row-start-2 flex flex-col md:row-start-1">
         <div className="flex flex-col gap-0.5 pb-1 text-sm uppercase leading-none">
           <p className="font-semibold">{name} /</p>

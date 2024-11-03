@@ -50,7 +50,7 @@ export const PictureContainer = ({ picture }: PictureContainerProps) => {
         ref={scope}
         src={picture}
         alt=""
-        className="h-full w-full object-cover"
+        className="pointer-events-none h-full w-full object-cover"
         initial={{ opacity: 0 }}
         animate={{
           opacity: 1,
