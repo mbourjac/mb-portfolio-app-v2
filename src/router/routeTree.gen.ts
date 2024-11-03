@@ -13,7 +13,8 @@
 import { Route as rootRoute } from './../routes/__root'
 import { Route as LayoutImport } from './../routes/_layout'
 import { Route as LayoutIndexImport } from './../routes/_layout/index'
-import { Route as LayoutWorkImport } from './../routes/_layout/work'
+import { Route as LayoutWorkIndexImport } from './../routes/_layout/work/index'
+import { Route as LayoutWorkCollectionSlugImport } from './../routes/_layout/work/$collectionSlug'
 
 // Create/Update Routes
 
@@ -27,8 +28,13 @@ const LayoutIndexRoute = LayoutIndexImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutWorkRoute = LayoutWorkImport.update({
-  path: '/work',
+const LayoutWorkIndexRoute = LayoutWorkIndexImport.update({
+  path: '/work/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutWorkCollectionSlugRoute = LayoutWorkCollectionSlugImport.update({
+  path: '/work/$collectionSlug',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -43,18 +49,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutImport
       parentRoute: typeof rootRoute
     }
-    '/_layout/work': {
-      id: '/_layout/work'
-      path: '/work'
-      fullPath: '/work'
-      preLoaderRoute: typeof LayoutWorkImport
-      parentRoute: typeof LayoutImport
-    }
     '/_layout/': {
       id: '/_layout/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof LayoutIndexImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/work/$collectionSlug': {
+      id: '/_layout/work/$collectionSlug'
+      path: '/work/$collectionSlug'
+      fullPath: '/work/$collectionSlug'
+      preLoaderRoute: typeof LayoutWorkCollectionSlugImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/work/': {
+      id: '/_layout/work/'
+      path: '/work'
+      fullPath: '/work'
+      preLoaderRoute: typeof LayoutWorkIndexImport
       parentRoute: typeof LayoutImport
     }
   }
@@ -63,7 +76,11 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-  LayoutRoute: LayoutRoute.addChildren({ LayoutWorkRoute, LayoutIndexRoute }),
+  LayoutRoute: LayoutRoute.addChildren({
+    LayoutIndexRoute,
+    LayoutWorkCollectionSlugRoute,
+    LayoutWorkIndexRoute,
+  }),
 })
 
 /* prettier-ignore-end */
@@ -80,16 +97,21 @@ export const routeTree = rootRoute.addChildren({
     "/_layout": {
       "filePath": "_layout.tsx",
       "children": [
-        "/_layout/work",
-        "/_layout/"
+        "/_layout/",
+        "/_layout/work/$collectionSlug",
+        "/_layout/work/"
       ]
-    },
-    "/_layout/work": {
-      "filePath": "_layout/work.tsx",
-      "parent": "/_layout"
     },
     "/_layout/": {
       "filePath": "_layout/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/work/$collectionSlug": {
+      "filePath": "_layout/work/$collectionSlug.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/work/": {
+      "filePath": "_layout/work/index.tsx",
       "parent": "/_layout"
     }
   }
