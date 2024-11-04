@@ -103,7 +103,7 @@ export const Collection = () => {
 
   return (
     <main
-      className="grid grid-cols-[1fr_auto_1fr] grid-rows-[1fr_auto_1fr] items-center p-3 md:grid-rows-1"
+      className="grid grow grid-cols-[1fr_auto_1fr] grid-rows-[1fr_auto_1fr] items-center p-3 md:grid-rows-1"
       {...swipeHandlers}
     >
       <div className="col-start-2 row-start-2 flex flex-col md:row-start-1">

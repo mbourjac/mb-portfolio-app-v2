@@ -18,7 +18,7 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
         setIsRouteTransition,
       }}
     >
-      <div className="grid min-h-dvh grid-rows-[auto_1fr_auto]">
+      <div className="flex min-h-dvh flex-col">
         <Header />
         {children ? children : <Outlet />}
         <Footer />

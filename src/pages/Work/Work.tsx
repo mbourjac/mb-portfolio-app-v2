@@ -22,7 +22,7 @@ export const Work = () => {
   }, [scope, isRouteTransition, animate]);
 
   return (
-    <main className="p-3" ref={scope}>
+    <main className="grow p-3" ref={scope}>
       <div className="flex w-[calc(100vw-1.5rem)] flex-col gap-3 overflow-x-hidden">
         {collections
           .slice()
