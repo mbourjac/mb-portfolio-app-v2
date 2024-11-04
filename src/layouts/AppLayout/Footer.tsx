@@ -10,7 +10,7 @@ export const Footer = () => {
   }, [isDarkMode]);
 
   return (
-    <footer className="grid grid-cols-2 items-center p-3 md:grid-cols-3">
+    <footer className="grid h-12 grid-cols-2 items-center p-3 md:grid-cols-3">
       <nav className="flex gap-4" aria-label="External">
         <a
           href="https://github.com/mbourjac/"

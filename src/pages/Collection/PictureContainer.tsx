@@ -18,8 +18,21 @@ export const PictureContainer = ({ picture }: PictureContainerProps) => {
   );
 
   const containerRatio = 3 / 4;
-  const maxContainerWidth = (windowWidth - (isSmallDevice ? 28 : 88)) / 2;
-  const maxContainerHeight = windowHeight - 48 * 2 - 12 * 2 - 34 * 2;
+  const padding = 12 * 2;
+  const containersGap = 4;
+  const sideElementsWidth = 20 * 2 + padding;
+  const headerHeight = 48;
+  const footerHeight = 48;
+  const infoHeight = 34 * 2;
+
+  const maxContainerWidth =
+    (windowWidth -
+      (isSmallDevice ?
+        padding + containersGap
+      : padding + sideElementsWidth + containersGap)) /
+    2;
+  const maxContainerHeight =
+    windowHeight - (headerHeight + footerHeight + padding + infoHeight);
   const widthBasedOnHeight = maxContainerHeight * containerRatio;
   const heightBasedOnWidth = maxContainerWidth / containerRatio;
 
