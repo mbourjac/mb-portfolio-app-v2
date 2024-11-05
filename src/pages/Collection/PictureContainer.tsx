@@ -31,19 +31,15 @@ export const PictureContainer = ({ picture }: PictureContainerProps) => {
         padding + containersGap
       : padding + sideElementsWidth + containersGap)) /
     2;
-  const maxContainerHeight =
-    windowHeight - (headerHeight + footerHeight + padding + infoHeight);
-  const widthBasedOnHeight = maxContainerHeight * containerRatio;
-  const heightBasedOnWidth = maxContainerWidth / containerRatio;
+  const maxContainerHeight = Math.min(
+    windowHeight - (headerHeight + footerHeight + padding + infoHeight),
+    650,
+  );
+  const widthBasedOnMaxHeight = maxContainerHeight * containerRatio;
+  const heightBasedOnMaxWidth = maxContainerWidth / containerRatio;
 
-  const containerWidth =
-    widthBasedOnHeight > maxContainerWidth ? maxContainerWidth : (
-      widthBasedOnHeight
-    );
-  const containerHeight =
-    heightBasedOnWidth > maxContainerHeight ? maxContainerHeight : (
-      heightBasedOnWidth
-    );
+  const containerWidth = Math.min(widthBasedOnMaxHeight, maxContainerWidth);
+  const containerHeight = Math.min(heightBasedOnMaxWidth, maxContainerHeight);
 
   useEffect(() => {
     if (isRouteTransition) {
@@ -53,7 +49,7 @@ export const PictureContainer = ({ picture }: PictureContainerProps) => {
 
   return (
     <div
-      className="flex aspect-[4/5] items-center justify-center"
+      className="aspect-[4/5]"
       style={{
         height: `${String(containerHeight)}px`,
         width: `${String(containerWidth)}px`,
