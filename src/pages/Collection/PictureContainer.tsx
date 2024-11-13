@@ -6,7 +6,11 @@ import { useMediaQuery } from '../../hooks/use-media-query';
 import { useWindowSize } from '../../hooks/use-window-size';
 
 type PictureContainerProps = {
-  picture: string;
+  picture: {
+    small: string;
+    medium: string;
+    large: string;
+  };
 };
 
 export const PictureContainer = ({ picture }: PictureContainerProps) => {
@@ -57,7 +61,13 @@ export const PictureContainer = ({ picture }: PictureContainerProps) => {
     >
       <motion.img
         ref={scope}
-        src={picture}
+        src={picture.large}
+        srcSet={`
+          ${picture.small} 360w,
+          ${picture.medium} 668w,
+          ${picture.large} 975w
+        `}
+        sizes={`${String(containerWidth)}px`}
         alt=""
         className="pointer-events-none h-full w-full object-cover"
         initial={{ opacity: 0 }}

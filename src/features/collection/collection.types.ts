@@ -4,5 +4,9 @@ export type CollectionData = {
   date: string;
   thumbnails: Record<string, string>;
   previews: Record<string, string>;
-  pictures: Record<string, string>;
+  pictures: {
+    small: Record<string, string>;
+    medium: Record<string, string>;
+    large: Record<string, string>;
+  };
 };

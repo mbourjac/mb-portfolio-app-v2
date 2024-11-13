@@ -12,11 +12,15 @@ export class Collection {
   }
 
   get pictures() {
-    return this.sortPathsByIndex(this.data.pictures);
+    return {
+      small: this.sortPathsByIndex(this.data.pictures.small),
+      medium: this.sortPathsByIndex(this.data.pictures.medium),
+      large: this.sortPathsByIndex(this.data.pictures.large),
+    };
   }
 
   get picturesCount() {
-    return this.pictures.length;
+    return this.pictures.small.length;
   }
 
   get id() {

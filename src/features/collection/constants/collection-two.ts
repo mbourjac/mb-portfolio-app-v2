@@ -19,13 +19,29 @@ const COLLECTION_TWO_DATA: CollectionData = {
       eager: true,
     },
   ),
-  pictures: import.meta.glob(
-    '@assets/collection-2/pictures/*.{jpg,jpeg,JPEG}',
-    {
-      import: 'default',
-      eager: true,
-    },
-  ),
+  pictures: {
+    small: import.meta.glob(
+      '@assets/collection-2/pictures/small/*.{jpg,jpeg,JPEG}',
+      {
+        import: 'default',
+        eager: true,
+      },
+    ),
+    medium: import.meta.glob(
+      '@assets/collection-2/pictures/medium/*.{jpg,jpeg,JPEG}',
+      {
+        import: 'default',
+        eager: true,
+      },
+    ),
+    large: import.meta.glob(
+      '@assets/collection-2/pictures/large/*.{jpg,jpeg,JPEG}',
+      {
+        import: 'default',
+        eager: true,
+      },
+    ),
+  },
 };
 
 export const COLLECTION_TWO = new Collection(COLLECTION_TWO_DATA);

@@ -14,13 +14,18 @@ export const Collection = () => {
   const collection = route.useLoaderData({
     select: (loaderData) => loaderData.collection,
   });
-  const { id, name, titleAndDate, pictures } = collection;
+  const { id, name, titleAndDate, pictures, picturesCount } = collection;
 
   const [currentSpreadIndex, setCurrentSpreadIndex] = useState(0);
 
-  const picturesCount = pictures.length;
-  const leftPicture = pictures[currentSpreadIndex]!;
-  const rightPicture = pictures[(currentSpreadIndex + 1) % picturesCount]!;
+  const getPicture = (index: number) => ({
+    small: pictures.small[index % picturesCount]!,
+    medium: pictures.medium[index % picturesCount]!,
+    large: pictures.large[index % picturesCount]!,
+  });
+
+  const leftPicture = getPicture(currentSpreadIndex);
+  const rightPicture = getPicture(currentSpreadIndex + 1);
 
   const showNextSpread = useCallback(() => {
     setCurrentSpreadIndex((prevIndex) => (prevIndex + 2) % picturesCount);
