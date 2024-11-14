@@ -1,7 +1,5 @@
-import { useEffect } from 'react';
-import { motion, useAnimate } from 'framer-motion';
+import { motion } from 'framer-motion';
 import defaultTheme from 'tailwindcss/defaultTheme';
-import { useRouteTransitionContext } from '../../context/RouteTransitionContext/RouteTransitionContext.hook';
 import { useMediaQuery } from '../../hooks/use-media-query';
 import { useWindowSize } from '../../hooks/use-window-size';
 
@@ -14,8 +12,6 @@ type PictureContainerProps = {
 };
 
 export const PictureContainer = ({ picture }: PictureContainerProps) => {
-  const [scope, animate] = useAnimate();
-  const { isRouteTransition } = useRouteTransitionContext();
   const { windowWidth, windowHeight } = useWindowSize();
   const isSmallDevice = useMediaQuery(
     `(max-width: ${defaultTheme.screens.md})`,
@@ -45,12 +41,6 @@ export const PictureContainer = ({ picture }: PictureContainerProps) => {
   const containerWidth = Math.min(widthBasedOnMaxHeight, maxContainerWidth);
   const containerHeight = Math.min(heightBasedOnMaxWidth, maxContainerHeight);
 
-  useEffect(() => {
-    if (isRouteTransition) {
-      void animate(scope.current, { opacity: 0 });
-    }
-  }, [isRouteTransition, animate, scope]);
-
   return (
     <div
       className="aspect-[4/5]"
@@ -60,7 +50,6 @@ export const PictureContainer = ({ picture }: PictureContainerProps) => {
       }}
     >
       <motion.img
-        ref={scope}
         src={picture.large}
         srcSet={`
           ${picture.small} 360w,

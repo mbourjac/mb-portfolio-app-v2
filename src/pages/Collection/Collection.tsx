@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router';
+import { useAnimate } from 'framer-motion';
 import { useSwipeable } from 'react-swipeable';
+import { useRouteTransitionContext } from '../../context/RouteTransitionContext/RouteTransitionContext.hook';
 import { useCollections } from '../../features/collection/collection.hooks';
 import { CollectionNavigation } from './CollectionNavigation';
 import { PictureContainer } from './PictureContainer';
@@ -9,6 +11,8 @@ const route = getRouteApi('/_layout/work/$collectionSlug');
 
 export const Collection = () => {
   const navigate = useNavigate();
+  const [scope, animate] = useAnimate();
+  const { isRouteTransition } = useRouteTransitionContext();
 
   const collections = useCollections();
   const collection = route.useLoaderData({
@@ -106,32 +110,40 @@ export const Collection = () => {
     showPreviousCollection,
   ]);
 
+  useEffect(() => {
+    if (isRouteTransition) {
+      void animate(scope.current, { opacity: 0 });
+    }
+  }, [isRouteTransition, animate, scope]);
+
   return (
-    <main
-      className="grid grow grid-cols-[1fr_auto_1fr] grid-rows-[1fr_auto_1fr] items-center p-3 md:grid-rows-1"
-      {...swipeHandlers}
-    >
-      <div className="col-start-2 row-start-2 flex flex-col md:row-start-1">
-        <div className="flex flex-col gap-0.5 pb-1 text-sm uppercase leading-none">
-          <p className="font-semibold">{name} /</p>
-          <p>{titleAndDate}</p>
-        </div>
-        <div className="flex gap-1">
-          <PictureContainer picture={leftPicture} />
-          <PictureContainer picture={rightPicture} />
-        </div>
-        <CollectionNavigation
-          picturesCount={picturesCount}
-          setCurrentSpreadIndex={setCurrentSpreadIndex}
-        />
-      </div>
-      <Link
-        to="/work/$collectionSlug"
-        params={{ collectionSlug: getNextCollectionSlug() }}
-        className="hidden w-fit items-end justify-center justify-self-end text-sm uppercase md:col-start-3 md:flex md:[writing-mode:vertical-lr]"
+    <main className="flex grow justify-center" ref={scope}>
+      <div
+        className="grid w-full grid-cols-[1fr_auto_1fr] grid-rows-[1fr_auto_1fr] items-center p-3 md:grid-rows-1"
+        {...swipeHandlers}
       >
-        Next collection
-      </Link>
+        <div className="col-start-2 row-start-2 flex flex-col md:row-start-1">
+          <div className="flex flex-col gap-0.5 pb-1 text-sm uppercase leading-none">
+            <p className="font-semibold">{name} /</p>
+            <p>{titleAndDate}</p>
+          </div>
+          <div className="flex gap-1">
+            <PictureContainer picture={leftPicture} />
+            <PictureContainer picture={rightPicture} />
+          </div>
+          <CollectionNavigation
+            picturesCount={picturesCount}
+            setCurrentSpreadIndex={setCurrentSpreadIndex}
+          />
+        </div>
+        <Link
+          to="/work/$collectionSlug"
+          params={{ collectionSlug: getNextCollectionSlug() }}
+          className="hidden w-fit items-end justify-center justify-self-end text-sm uppercase md:col-start-3 md:flex md:[writing-mode:vertical-lr]"
+        >
+          Next collection
+        </Link>
+      </div>
     </main>
   );
 };
