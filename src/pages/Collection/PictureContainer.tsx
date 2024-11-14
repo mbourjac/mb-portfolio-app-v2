@@ -20,7 +20,7 @@ export const PictureContainer = ({ picture }: PictureContainerProps) => {
   const containerRatio = 3 / 4;
   const padding = 12 * 2;
   const containersGap = 4;
-  const sideElementsWidth = 20 * 2 + padding;
+  const sideElementsWidth = 14 * 2 + padding;
   const headerHeight = 48;
   const footerHeight = 48;
   const infoHeight = 34 * 2;
