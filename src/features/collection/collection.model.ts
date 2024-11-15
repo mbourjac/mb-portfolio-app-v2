@@ -3,26 +3,6 @@ import type { CollectionData } from './collection.types';
 export class Collection {
   constructor(private readonly data: CollectionData) {}
 
-  get thumbnails() {
-    return this.sortPathsByIndex(this.data.thumbnails);
-  }
-
-  get previews() {
-    return this.sortPathsByIndex(this.data.previews);
-  }
-
-  get pictures() {
-    return {
-      small: this.sortPathsByIndex(this.data.pictures.small),
-      medium: this.sortPathsByIndex(this.data.pictures.medium),
-      large: this.sortPathsByIndex(this.data.pictures.large),
-    };
-  }
-
-  get picturesCount() {
-    return this.pictures.small.length;
-  }
-
   get id() {
     return this.data.id;
   }
@@ -33,6 +13,10 @@ export class Collection {
 
   get name() {
     return `collection ${String(this.data.id)}`;
+  }
+
+  get picturesCount() {
+    return this.data.picturesCount;
   }
 
   get titleAndDate() {
@@ -48,14 +32,28 @@ export class Collection {
     return `${this.baseInfo}. ${String(this.picturesCount)} pictures`;
   }
 
-  private sortPathsByIndex(paths: Record<string, string>) {
-    const getPathIndex = (path: string): number => {
-      const match = path.match(/\d+(?=\.)/);
-      return match ? parseInt(match[0], 10) : Infinity;
-    };
+  get thumbnails() {
+    return this.generateImageUrls(this.data.thumbnailsCount, 'thumbnails');
+  }
 
-    return Object.values(paths).sort(
-      (a, b) => getPathIndex(a) - getPathIndex(b),
+  get previews() {
+    return this.generateImageUrls(this.picturesCount, 'previews');
+  }
+
+  get pictures() {
+    return {
+      small: this.generateImageUrls(this.picturesCount, 'pictures', 'small'),
+      medium: this.generateImageUrls(this.picturesCount, 'pictures', 'medium'),
+      large: this.generateImageUrls(this.picturesCount, 'pictures', 'large'),
+    };
+  }
+
+  private generateImageUrls(count: number, folder: string, size = '') {
+    const filePrefix = folder.endsWith('s') ? folder.slice(0, -1) : folder;
+    return Array.from(
+      { length: count },
+      (_, index) =>
+        `/images/${this.slug}/${folder}/${size ? `${size}/` : ''}${this.slug}-${filePrefix}-${String(index + 1)}.webp`,
     );
   }
 }
