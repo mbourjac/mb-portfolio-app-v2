@@ -21,6 +21,9 @@ export const Header = () => {
 
   const handleNavigate = (event: MouseEvent, to: DefinedRoute) => {
     event.preventDefault();
+
+    if (to === pathname) return;
+
     setIsRouteTransition(true);
     setTimeout(() => {
       void navigate({ to });
