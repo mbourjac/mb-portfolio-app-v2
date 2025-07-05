@@ -1,19 +1,35 @@
-import { useEffect, useState } from 'react';
-import { Link } from '@tanstack/react-router';
-import { useAnimate } from 'framer-motion';
+import { useEffect, useState, type MouseEvent } from 'react';
+import { Link, useNavigate } from '@tanstack/react-router';
+import { motion, useAnimate } from 'framer-motion';
 import { RightArrowIcon } from '../../components/RightArrowIcon';
 import { useRouteTransitionContext } from '../../context/RouteTransitionContext/RouteTransitionContext.hook';
 import { useCollections } from '../../features/collection/collection.hooks';
+import type { DefinedRoute } from '../../router/router.types';
 import { CollectionPreview } from './CollectionPreview';
 
 export const Work = () => {
+  const navigate = useNavigate();
   const [scope, animate] = useAnimate();
-  const { isRouteTransition } = useRouteTransitionContext();
+  const { isRouteTransition, setIsRouteTransition } =
+    useRouteTransitionContext();
   const collections = useCollections();
 
   const [hoveredCollectionIndex, setHoveredCollectionIndex] = useState<
     number | null
   >(null);
+
+  const handleNavigate = (
+    event: MouseEvent<'a'>,
+    to: DefinedRoute,
+    slug: string,
+  ) => {
+    event.preventDefault();
+
+    setIsRouteTransition(true);
+    setTimeout(() => {
+      void navigate({ to, params: { collectionSlug: slug } });
+    }, 200);
+  };
 
   useEffect(() => {
     if (isRouteTransition) {
@@ -22,7 +38,15 @@ export const Work = () => {
   }, [scope, isRouteTransition, animate]);
 
   return (
-    <main className="grow p-3" ref={scope}>
+    <motion.main
+      className="grow p-3 pb-[3.75rem]"
+      ref={scope}
+      initial={{ opacity: 0 }}
+      animate={{
+        opacity: 1,
+        transition: { duration: 1 },
+      }}
+    >
       <div className="flex w-[calc(100vw-1.5rem)] flex-col gap-3 overflow-x-hidden">
         {collections
           .slice()
@@ -33,6 +57,9 @@ export const Work = () => {
                 key={index}
                 to="/work/$collectionSlug"
                 params={{ collectionSlug: slug }}
+                onClick={(event) =>
+                  handleNavigate(event, '/work/$collectionSlug', slug)
+                }
               >
                 <article
                   className="group flex flex-col gap-1 border-b border-off-black transition-opacity dark:border-white"
@@ -56,6 +83,6 @@ export const Work = () => {
             );
           })}
       </div>
-    </main>
+    </motion.main>
   );
 };
