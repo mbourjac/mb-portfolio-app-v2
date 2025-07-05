@@ -32,12 +32,12 @@ export class Collection {
     return `${this.baseInfo}. ${String(this.picturesCount)} pictures`;
   }
 
-  get thumbnails() {
-    return this.generateImageUrls(this.data.thumbnailsCount, 'thumbnails');
+  get fragments() {
+    return this.generateImageUrls(this.data.fragmentsCount, 'fragments');
   }
 
-  get previews() {
-    return this.generateImageUrls(this.picturesCount, 'previews');
+  get thumbnails() {
+    return this.generateImageUrls(this.picturesCount, 'thumbnails');
   }
 
   get pictures() {

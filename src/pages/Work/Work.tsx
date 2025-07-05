@@ -27,13 +27,12 @@ export const Work = () => {
         {collections
           .slice()
           .reverse()
-          .map(({ fullInfo, name, titleAndDate, slug, previews }, index) => {
+          .map(({ fullInfo, name, titleAndDate, slug, thumbnails }, index) => {
             return (
               <Link
                 key={index}
                 to="/work/$collectionSlug"
                 params={{ collectionSlug: slug }}
-                className="hover:text-primary"
               >
                 <article
                   className="group flex flex-col gap-1 border-b border-off-black transition-opacity dark:border-white"
@@ -48,7 +47,7 @@ export const Work = () => {
                     </span>
                   </h2>
                   <CollectionPreview
-                    previews={previews}
+                    thumbnails={thumbnails}
                     collectionIndex={index}
                     hoveredCollectionIndex={hoveredCollectionIndex}
                   />

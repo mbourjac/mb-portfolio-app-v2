@@ -5,7 +5,7 @@ const COLLECTION_FOUR_DATA: CollectionData = {
   id: 4,
   title: 'untitled',
   date: '2016 —',
-  thumbnailsCount: 192,
+  fragmentsCount: 192,
   picturesCount: 192,
 };
 

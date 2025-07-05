@@ -5,7 +5,7 @@ const COLLECTION_TWO_DATA: CollectionData = {
   id: 2,
   title: 'sud',
   date: '2014 —',
-  thumbnailsCount: 88,
+  fragmentsCount: 88,
   picturesCount: 106,
 };
 

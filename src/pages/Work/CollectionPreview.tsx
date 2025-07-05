@@ -2,13 +2,13 @@ import { motion } from 'framer-motion';
 import { useWindowSize } from '../../hooks/use-window-size';
 
 type CollectionPreviewProps = {
-  previews: string[];
+  thumbnails: string[];
   collectionIndex: number;
   hoveredCollectionIndex: number | null;
 };
 
 export const CollectionPreview = ({
-  previews,
+  thumbnails,
   collectionIndex,
   hoveredCollectionIndex,
 }: CollectionPreviewProps) => {
@@ -18,7 +18,7 @@ export const CollectionPreview = ({
   const previewWidth = 2 * 16;
   const gapWidth = 0.25 * 16;
 
-  const minPreviewsCount = Math.ceil(
+  const minThumbnailsCount = Math.ceil(
     (containerWidth + gapWidth) / (previewWidth + gapWidth),
   );
 
@@ -37,7 +37,7 @@ export const CollectionPreview = ({
       }}
       className="flex h-14 gap-1"
     >
-      {previews.slice(0, minPreviewsCount).map((preview, index) => (
+      {thumbnails.slice(0, minThumbnailsCount).map((preview, index) => (
         <div key={index} className="min-w-8">
           <img
             src={preview}

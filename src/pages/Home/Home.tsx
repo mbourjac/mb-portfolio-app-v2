@@ -20,17 +20,17 @@ export const Home = () => {
   const [isInitialAnimation, setIsInitialAnimation] = useState(true);
   const [isAnimationActive, setIsAnimationActive] = useState(false);
 
-  const allThumbnails = [
-    ...collections.map((collection) => collection.thumbnails).flat(),
+  const allFragments = [
+    ...collections.map((collection) => collection.fragments).flat(),
   ];
-  const shuffledThumbnails = shuffleArray(allThumbnails);
-  const visibleThumbnailsCount = 120;
+  const shuffledFragments = shuffleArray(allFragments);
+  const visibleFragmentsCount = 120;
 
-  const [visibleThumbnails, setVisibleThumbnails] = useState<string[]>(
-    shuffledThumbnails.slice(0, visibleThumbnailsCount),
+  const [visibleFragments, setVisibleFragments] = useState<string[]>(
+    shuffledFragments.slice(0, visibleFragmentsCount),
   );
-  const [hiddenThumbnails, setHiddenThumbnails] = useState<string[]>(
-    shuffledThumbnails.slice(visibleThumbnailsCount),
+  const [hiddenFragments, setHiddenFragments] = useState<string[]>(
+    shuffledFragments.slice(visibleFragmentsCount),
   );
 
   useEffect(() => {
@@ -48,24 +48,23 @@ export const Home = () => {
 
     const interval = setInterval(
       () => {
-        const randomVisibleThumbnailIndex =
-          getRandomArrayIndex(visibleThumbnails);
-        const randomHiddenThumbnailIndex =
-          getRandomArrayIndex(hiddenThumbnails);
+        const randomVisibleFragmentIndex =
+          getRandomArrayIndex(visibleFragments);
+        const randomHiddenFragmentIndex = getRandomArrayIndex(hiddenFragments);
 
-        setVisibleThumbnails((prev) =>
+        setVisibleFragments((prev) =>
           replaceArrayItemAtIndex(
             prev,
-            randomVisibleThumbnailIndex,
-            hiddenThumbnails[randomHiddenThumbnailIndex]!,
+            randomVisibleFragmentIndex,
+            hiddenFragments[randomHiddenFragmentIndex]!,
           ),
         );
 
-        setHiddenThumbnails((prevHiddenThumbnails) =>
+        setHiddenFragments((prevHiddenFragments) =>
           replaceArrayItemAtIndex(
-            prevHiddenThumbnails,
-            randomHiddenThumbnailIndex,
-            visibleThumbnails[randomVisibleThumbnailIndex]!,
+            prevHiddenFragments,
+            randomHiddenFragmentIndex,
+            visibleFragments[randomVisibleFragmentIndex]!,
           ),
         );
       },
@@ -73,7 +72,7 @@ export const Home = () => {
     );
 
     return () => clearInterval(interval);
-  }, [isAnimationActive, visibleThumbnails, hiddenThumbnails]);
+  }, [isAnimationActive, visibleFragments, hiddenFragments]);
 
   useEffect(() => {
     if (isInitialAnimation) {
@@ -90,7 +89,7 @@ export const Home = () => {
   return (
     <>
       <AnimatePresence>
-        {showLoader && <HomeLoader gridItemsCount={visibleThumbnailsCount} />}
+        {showLoader && <HomeLoader gridItemsCount={visibleFragmentsCount} />}
       </AnimatePresence>
       <main className="flex grow items-center justify-center">
         <div
@@ -98,7 +97,7 @@ export const Home = () => {
           className="grid w-fit max-w-[653px] grid-cols-[repeat(30,minmax(0,1fr))] gap-[1px] p-3 opacity-80"
         >
           <AnimatePresence mode="popLayout">
-            {visibleThumbnails.map((path) => (
+            {visibleFragments.map((path) => (
               <motion.img
                 key={path}
                 src={path}

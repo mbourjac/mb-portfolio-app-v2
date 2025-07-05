@@ -5,7 +5,7 @@ const COLLECTION_THREE_DATA: CollectionData = {
   id: 3,
   title: 'japon',
   date: '2019 7.15 — 8.13',
-  thumbnailsCount: 265,
+  fragmentsCount: 265,
   picturesCount: 287,
 };
 

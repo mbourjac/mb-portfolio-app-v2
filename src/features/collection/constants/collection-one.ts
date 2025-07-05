@@ -5,7 +5,7 @@ const COLLECTION_ONE_DATA: CollectionData = {
   id: 1,
   title: 'paris',
   date: '2015 —',
-  thumbnailsCount: 123,
+  fragmentsCount: 123,
   picturesCount: 123,
 };
 

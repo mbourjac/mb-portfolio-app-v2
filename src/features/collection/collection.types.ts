@@ -2,6 +2,6 @@ export type CollectionData = {
   id: number;
   title: string;
   date: string;
-  thumbnailsCount: number;
+  fragmentsCount: number;
   picturesCount: number;
 };
