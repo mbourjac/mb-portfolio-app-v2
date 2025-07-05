@@ -1,5 +1,5 @@
 import { useEffect, useState, type MouseEvent } from 'react';
-import { useLocation, useNavigate } from '@tanstack/react-router';
+import { Link, useLocation, useNavigate } from '@tanstack/react-router';
 import { useRouteTransitionContext } from '../../context/RouteTransitionContext/RouteTransitionContext.hook';
 import { cn } from '../../lib/tailwind';
 import type { DefinedRoute } from '../../router/router.types';
@@ -19,7 +19,7 @@ export const Header = () => {
     { label: 'Work', to: '/work' },
   ];
 
-  const handleNavigate = (event: MouseEvent, to: DefinedRoute) => {
+  const handleNavigate = (event: MouseEvent<'a'>, to: DefinedRoute) => {
     event.preventDefault();
 
     if (to === pathname) return;
@@ -41,14 +41,13 @@ export const Header = () => {
       <h1>Michaël Bourjac</h1>
       <nav className="flex gap-4" aria-label="Main">
         {links.map(({ label, to }) => (
-          <a
+          <Link
             key={label}
-            href={to}
+            to={to}
             onClick={(event) => handleNavigate(event, to)}
             onMouseEnter={() => setIsLinkHovered(true)}
             onMouseLeave={() => setIsLinkHovered(false)}
             className="group block"
-            aria-current={pathname === to ? 'page' : undefined}
           >
             <span className="flex items-center gap-1">
               <span className="relative flex size-4 items-center justify-center rounded-full bg-off-black dark:bg-white">
@@ -61,7 +60,7 @@ export const Header = () => {
               </span>
               <span>{label}</span>
             </span>
-          </a>
+          </Link>
         ))}
       </nav>
     </header>
