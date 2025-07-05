@@ -13,14 +13,14 @@ export const Footer = () => {
     <footer className="fixed bottom-0 grid h-12 w-full grid-cols-2 items-center p-3 md:grid-cols-3">
       <nav className="flex gap-4" aria-label="External">
         <a
-          href="https://github.com/mbourjac/"
+          href="mailto:michael.bourjac@gmail.com"
           target="_blank"
           rel="noopener noreferrer"
         >
           Email
         </a>
         <a
-          href="mailto:michael.bourjac@gmail.com"
+          href="https://github.com/mbourjac/"
           target="_blank"
           rel="noopener noreferrer"
         >
