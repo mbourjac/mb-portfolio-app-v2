@@ -119,7 +119,7 @@ export const Collection = () => {
   return (
     <main className="flex grow justify-center" ref={scope}>
       <div
-        className="grid w-full grid-cols-[1fr_auto_1fr] grid-rows-[1fr_auto_1fr] items-center py-3 md:grid-rows-1"
+        className="grid max-h-[calc(100vh-96px)] w-full grid-cols-[1fr_auto_1fr] grid-rows-[1fr_auto_1fr] items-center py-3 md:grid-rows-1"
         {...swipeHandlers}
       >
         <div className="col-start-2 row-start-2 flex flex-col md:row-start-1">

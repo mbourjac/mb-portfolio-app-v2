@@ -91,7 +91,7 @@ export const Home = () => {
       <AnimatePresence>
         {showLoader && <HomeLoader gridItemsCount={visibleFragmentsCount} />}
       </AnimatePresence>
-      <main className="flex grow items-center justify-center">
+      <main className="flex max-h-[calc(100vh-96px)] grow items-center justify-center">
         <div
           ref={scope}
           className="grid w-fit max-w-[653px] grid-cols-[repeat(30,minmax(0,1fr))] gap-[1px] p-3 opacity-80"
